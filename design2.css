@@ -6,6 +6,10 @@ ul{
     list-style: none;
 }
 
+li{
+    list-style: none;
+}
+
 body{
     padding: 0;
     margin: 0;
@@ -20,19 +24,19 @@ body{
     height: 100px;
 }
 
-.navbar-brand{
+.navbar .navbar-brand{
     color: white;
     font-weight: 500;
     font-size: 50px;
     margin-left: 10px;
 }
 
-.nav-link{
+.navbar .nav-link{
     color: white;
     font-size: 18px;
 }
 
-.navbar-collapse{
+.navbar .navbar-collapse{
     justify-content: flex-end;
     margin-right: 10px;
 }
@@ -45,13 +49,13 @@ body{
     padding: 0;
 }
 
-.position-fixed{
+.header .position-fixed{
     position: absolute;
     top: 40%;
     left: 10px;
 }
 
-.list-group{
+.header .col-2 .list-group{
     flex-direction: column;
     align-content: center;
     text-align: center;
@@ -62,7 +66,7 @@ body{
     visibility: hidden;
 }
 
-.list-group .list-group-item{
+.header .list-group .list-group-item{
     background: var(--main-color);
     color: white;
     border: none;
@@ -70,11 +74,36 @@ body{
     margin-bottom: 5px;
 }
 
-@media (min-width: 768px){
+.header .row{
+    height: 100%;
+    text-align: center;
+    align-content: center;
+}
+
+.header .row .col-5{
+    text-align: center;
+}
+
+.header .row .col-5 .list-group{
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
+    margin: 0 auto;
+    border: 2px solid var(--main-color);
+    border-radius: 10px;
+}
+
+
+/* 
+768
+992
+1200
+ */
+@media (min-width: 1200px){
     .navbar-toggler{
         display: none;
     }
-    .list-group{
+    .header .col-2 .list-group{
         visibility: visible;
     }
 }
