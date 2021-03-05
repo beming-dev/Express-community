@@ -1,166 +1,111 @@
+:root{
+    --main-color: rgb(181, 214, 146);
+}
+
+ul{
+    list-style: none;
+}
+
+li{
+    list-style: none;
+}
+
 body{
     padding: 0;
     margin: 0;
-    background: #f2f6e9;
+    background: #F0FFFF;
+    font-family: 'Lato', sans-serif;
+    height: 2000px;
 }
 
 .navbar{
-    background: #6ab446;
+    background-color: var(--main-color);
+    width: 100%; !important
+    height: 100px;
 }
 
-.nav-link,
-.navbar-brand{
-    color: #fff;
-    cursor: pointer;
+.navbar .navbar-brand{
+    color: white;
+    font-weight: 500;
+    font-size: 50px;
+    margin-left: 10px;
 }
 
-.nav-link{
-    margin-right: 1em !important;
+.navbar .nav-link{
+    color: white;
+    font-size: 18px;
 }
 
-.nav-link:hover{
-    color: #000;
-}
-
-.navbar-collapse{
+.navbar .navbar-collapse{
     justify-content: flex-end;
+    margin-right: 10px;
+}
+
+#main-navigation{
+    background-color: var(--main-color);
 }
 
 .header{
-    background-image: url('images/background.jpg');
-    background-size: cover;
-    background-position: center;
-    position: relative;
+    padding: 0;
+    margin: 0;
 }
 
-.overlay{
+.header .position-fixed{
     position: absolute;
-    min-height: 100%;
-    min-width: 100%;
-    left: 0;
-    top: 0;
-    background: rgba(0, 0, 0, 0.5);
+    top: 40%;
+    left: 10px;
 }
 
-.description{
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -55%);
+.header .col-2 .list-group{
+    flex-direction: column;
+    align-content: center;
+    text-align: center;
+    width: 180px;
+    background: var(--main-color);
+    border: 2px solid var(--main-color);
+    border-radius: 10px;
+    visibility: hidden;
+}
+
+.header .list-group .list-group-item{
+    background: var(--main-color);
+    color: white;
+    border: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.header .row{
+    margin: 0;
+    height: 100%;
+    text-align: center;
+    align-content: center;
+}
+
+.header .row .col-5{
     text-align: center;
 }
 
-.description h1{
-    color: #6ab446;
+.header .row .col-5 .list-group{
+    width: 450px;
+    height: 450px;
+    border: 1px solid black;
+    margin: 0 auto;
+    border: 2px solid var(--main-color);
+    border-radius: 10px;
 }
 
-.description p{
-    color: #fff;
-    font-size: 1.3rem;
-    line-height: 1.5;
-}
 
-.description button{
-    border: 1px solid #6ab446;
-    background: #6ab446;
-    border-radius: 0;
-    color: #fff;
-}
-
-.description button:hover{
-    border: 1px solid #fff;
-    background: #fff;
-    color: #000;
-}
-
-.features{
-    margin: 4em auto;
-    padding: 1em;
-    position: relative;
-}
-
-.feature-title{
-    color: #333;
-    font-size: 1.3rem;
-    font-weight:700;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-}
-
-.features img{
-    -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    margin-bottom: 16px;
-}
-
-.features .form-control,
-.features input{
-    border-radius: 0;
-}
-
-.features .btn{
-    background-color: #589b37;
-    border: 1px solid #589b37;
-    color: #fff;
-    margin-top: 20px;
-}
-
-.features .btn:hover{
-    background-color: #333;
-    border: 1px solid #333;
-}
-
-.background {
-    background: #dedec8;
-    padding: 4em 0;
-}
-.team {
-    color: #5e5e55;
-    padding: 0 180px;
-}
-.team .card-columns {
-    -webkit-column-count: 4;
-    -moz-column-count: 4;
-    column-count: 4;
-}
-.team .card {
-    background:none;
-    border: none;
-}
-.team .card-title {
-    font-size: 1.3rem;
-    margin-bottom: 0;
-    text-transform: uppercase;
-}
-.page-footer {
-    background-color: #222;
-    color: #ccc;
-    padding: 60px 0 30px;
-}
-.footer-copyright {
-    color: #666;
-    padding: 40px 0;
-}
-
-@media (max-width:575.98px){
-    .description{
-        left: 0;
-        padding: 0 15px;
-        position: absolute;
-        top: 10%;
-        transform: none;
-        text-align: center;
+/* 
+768
+992
+1200
+ */
+@media (min-width: 1200px){
+    .navbar-toggler{
+        display: none;
     }
-
-    .description h1{
-        font-size: 2em;
-    }
-
-    .description p{
-        font-size: 1.2rem;
-    }
-    .features {
-        margin: 0;
+    .header .col-2 .list-group{
+        visibility: visible;
     }
 }
