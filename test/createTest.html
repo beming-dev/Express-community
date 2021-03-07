@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="createTest.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-none">
+        <a href="test.html" class="navbar-brand">DevCom</a>
+        <button class="navbar-toggler navbar-dark type="button" data-toggle = "collapse" data-target="#main-navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="main-navigation">
+            <ul class="navbar-nav">
+                <a class="nav-link" href="#"><li class="nav-item">질문 게시판</li></a>
+                <a class="nav-link" href="#"><li class="nav-item">자유 게시판</li></a>
+                <a class="nav-link" href="#"><li class="nav-item">정보 게시판</li></a>
+                <a class="nav-link" href="#"><li class="nav-item">인기 글</li></a>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid contents d-flex">
+        <div class="left">
+            <ul class="list-group position-sticky">
+                <a  href="#"><li class="list-group-item">질문 게시판</li></a>
+                <a  href="#"><li class="list-group-item">자유 게시판</li></a>
+                <a  href="#"><li class="list-group-item">정보 게시판</li></a>
+                <a  href="#"><li class="list-group-item">인기 글</li></a>
+            </ul>
+        </div>
+        <form class="right">
+            <div class="form-group">
+                <input class="form-control" type="text" placeholder="title">
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="13" placeholder="description"></textarea>
+                <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="footer">
+    </div>
+
+    <script src="main.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
