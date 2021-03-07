@@ -61,6 +61,14 @@ body {
   background-color: var(--main-color);
 }
 
+.create {
+  background: var(--main-color);
+  position: absolute;
+  top: 150px;
+  left: 100px;
+  border: none;
+}
+
 .contents {
   padding: 0;
   margin: 0;
