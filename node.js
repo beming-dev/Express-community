@@ -4,6 +4,14 @@ const path = require("path");
 const express = require("express");
 const app = express();
 
+let mysql      = require('mysql');
+let connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'mingwan',
+  password : '11111111',
+  database : 'opentutorials'
+});
+
 const template = require("./lib/template");
 
 app.set("view engine", "ejs");

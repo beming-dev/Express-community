@@ -63,9 +63,7 @@ body {
 
 .create {
   background: var(--main-color);
-  position: absolute;
-  top: 150px;
-  left: 100px;
+  margin-top: 50px;
   border: none;
 }
 
