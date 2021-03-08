@@ -172,16 +172,15 @@ body {
 
 @media(min-width:1200px){
   .navbar .navbar-nav {
-    display: block;
     position: fixed;
+    top: 40%;
+    left: 20px;
     background: var(--main-color);
     border: 2px solid var(--main-color);
     border-radius: 10px;
     justify-content: center;
     text-align: center;
     width: 140px;
-    top: 40%;
-    left: 20px;
     background: var(--main-color);
     margin: auto 0;
   }

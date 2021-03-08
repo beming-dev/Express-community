@@ -22,15 +22,17 @@ app.use(express.static("public"));
 app.get("/", (req, res) => {
   //let html = template.HTML();
   //res.send(html);
+  let css = "/css/design.css";
+  let content = template.mainContent();
   let category;
   connection.query('SELECT * FROM board', function (error, results, fields) {
     if (error) throw error;
     category = results;
+    let cate = template.list(category);
+    console.log(cate);
+    let html = template.HTML(cate, content, css);
+    res.send(html);
   });
-
-  category = template.list(category);
-  let html = template.HTML(category);
-  res.send(html);
   // res.render("test.html");
 });
 
