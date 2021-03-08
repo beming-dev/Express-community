@@ -52,6 +52,10 @@ body {
   background: var(--main-color);
 }
 
+.navbar .navbar-nav .nav-link{
+  margin: 0;
+}
+
 .navbar .navbar-toggler {
   display: none;
 }
@@ -59,6 +63,12 @@ body {
 #main-navigation {
   margin: 0;
   background-color: var(--main-color);
+}
+
+.create {
+  background: var(--main-color);
+  margin-top: 50px;
+  border: none;
 }
 
 .contents {
@@ -75,7 +85,7 @@ body {
   min-height: 100%;
   flex-shrink: 0;
 }
-.contents .left .position-sticky {
+/* .contents .left .position-sticky {
   background: var(--main-color);
   border: 2px solid var(--main-color);
   border-radius: 10px;
@@ -85,14 +95,14 @@ body {
   height: 300px;
   top: 40%;
   left: 20px;
-}
+} */
 
-.contents .left .position-sticky .list-group-item {
+/* .contents .left .position-sticky .list-group-item {
   color: white;
   width: 130px;
   background: var(--main-color);
   border: none;
-}
+} */
 .contents .right {
   width: 100%;
   height: 100%;
@@ -107,18 +117,14 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-
-.contents .right .list-box .list-group {
-  width: 400px;
-  height: 400px;
-  /* error */
-  background: var(--main-color);
-  border: 2px solid var(--main-color);
+.contents .right .list-box .postBox{
+  border: 1px solid var(--main-color);
   border-radius: 10px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  background: var(--main-color);
+  width: 90%;
+  height: 1000px;
+  margin: 0 auto;
 }
-
 .footer {
   width: 100%;
   height: 200px;
@@ -134,9 +140,9 @@ body {
   .navbar .navbar-toggler {
     display: inline-block;
   }
-  .header .col-2 .list-group {
+  /* .header .col-2 .list-group {
     visibility: visible;
-  }
+  } */
   .contents .position-sticky {
     display: none;
   }
@@ -151,12 +157,27 @@ body {
     align-items: center;
     justify-content: start;
   }
-  .contents .right .list-box .list-group {
-    top: 0px;
-    margin-top: 50px;
-    margin-bottom: 50px;
-  }
   .contents .right .list-box {
     width: 100%;
+  }
+}
+
+@media(min-width:1200px){
+  .navbar .navbar-nav {
+    display: block;
+    position: fixed;
+    background: var(--main-color);
+    border: 2px solid var(--main-color);
+    border-radius: 10px;
+    justify-content: center;
+    text-align: center;
+    width: 140px;
+    top: 40%;
+    left: 20px;
+    background: var(--main-color);
+    margin: auto 0;
+  }
+  .collapse:not(.show) {
+    display: block;
   }
 }
