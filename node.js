@@ -17,20 +17,17 @@ const template = require("./lib/template");
 
 app.set("view engine", "ejs");
 app.engine("html", require("ejs").renderFile);
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 
 app.get("/", (req, res) => {
   //let html = template.HTML();
   //res.send(html);
   let css = "/css/design.css";
-  let content = template.mainContent();
-  let category;
   connection.query('SELECT * FROM board', function (error, results, fields) {
     if (error) throw error;
-    category = results;
-    let cate = template.list(category);
-    console.log(cate);
-    let html = template.HTML(cate, content, css);
+    let content = template.mainContent(results);
+    let category = template.list(results);
+    let html = template.HTML(category, content, css);
     res.send(html);
   });
   // res.render("test.html");
@@ -41,7 +38,14 @@ app.get("/create", (req, res) => {
 });
 
 app.get("/board/:boardName", (req, res) =>{
-
+  let css = "/css/post.css";
+  connection.query('SELECT * FROM board', function (error, results, fields) {
+    if (error) throw error;
+    let content = template.postContent();
+    let category = template.list(results);
+    let html = template.HTML(category, content, css);
+    res.send(html);
+  });
 });
 
 app.listen(3001, () => console.log("Example"));
