@@ -21,18 +21,21 @@ app.engine("html", require("ejs").renderFile);
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended:false}));
 
-app.get("/", (req, res) => {
+
   //let html = template.HTML();
   //res.send(html);
+app.get("/", (req, res) => {
   let css = "/css/design.css";
   connection.query('SELECT * FROM board', function (error, results, fields) {
     if (error) throw error;
-    let content = template.mainContent(results);
-    let category = template.list(results);
-    let html = template.HTML(category, content, css);
-    res.send(html);
+    connection.query(`SELECT * FROM post`, function(error, postList, fields) {
+      if (error) throw error;
+      let content = template.mainContent(results, postList);
+      let category = template.list(results);
+      let html = template.HTML(category, content, css);
+      res.send(html);
+    });
   });
-  // res.render("test.html");
 });
 
 app.get("/create/:boardName", (req, res) => {

@@ -118,6 +118,44 @@ body {
   align-items: center;
 }
 
+.contents .right .list-box .post{
+  border: 2px solid white;
+  border-radius: 10px;
+  height: 40px;
+  align-items: center;
+  margin: 0 10px;
+  margin-top: 10px;
+}
+.contents .right .list-box .title{
+  color: black;
+  margin-left: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 80%
+}
+.contents .right .list-box .title:hover{
+  color: white;
+  text-decoration: none;
+}
+.contents .right .list-box .writer{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  color: grey;
+  width: 100px;
+  flex-shrink: 0;
+}
+.contents .right .list-box .date{
+  font-size: 12px;
+  flex-shrink: 0;
+  width: 140px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .contents .right .list-box .list-group {
   width: 400px;
   height: 400px;
