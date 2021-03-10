@@ -75,4 +75,16 @@ app.get("/board/:boardName", (req, res) =>{
   });
 });
 
+app.get("/board/:boardName/description/:id", (req, res) =>{
+  let css = "/css/description.css";
+  connection.query(`SELECT * FROM post WHERE id='${req.params.id}'`, function(error, post, fields) {
+    console.log(post);
+    if (error) throw error;
+    let content = template.postDescriptionContent(post);
+    let category = template.list(req.boardList);
+    let html = template.HTML(category, content, css);
+    res.send(html);
+});
+});
+
 app.listen(3001, () => console.log("Example"));

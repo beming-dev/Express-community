@@ -117,52 +117,57 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-.contents .right .list-box .postBox{
+
+.contents .right .list-box .postContentBox{
+  justify-items: right;
+  align-items: flex-end;
+  background: var(--main-color);
   border: 1px solid var(--main-color);
   border-radius: 10px;
-  background: var(--main-color);
   width: 90%;
-  height: 1010px;
-  margin: 0 auto;
-  overflow: hidden;
-  white-space: nowrap;
+  height: 1000px;
+  font-weight: bold;
+  text-align: right;
+  flex-direction: column;
 }
 
-.contents .right .list-box .postBox .post{
-  border: 2px solid white;
+.contents .right .list-box .postContentBox .title{
+  width: 100%;
+  background: white;
+  border: 1px solid var(--main-color);
   border-radius: 10px;
-  height: 40px;
-  align-items: center;
-  margin: 0 10px;
+  text-align: left;
+  padding-left: 20px;
   margin-top: 10px;
 }
-.contents .right .list-box .postBox .title{
-  color: black;
-  margin-left: 5px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  width: 80%
+
+.contents .right .list-box .postContentBox .writer{
+  text-align: center;
+  width: 170px;
+  background: white;
+  border: 1px solid var(--main-color);
+  border-radius: 10px;
+  margin-top: 10px;
 }
-.contents .right .list-box .postBox .title:hover{
-  color: white;
-  text-decoration: none;
+
+.contents .right .list-box .postContentBox .date{
+  text-align: center;
+  width: 170px;
+  background: white;
+  border: 1px solid var(--main-color);
+  border-radius: 10px;
+  margin-top: 10px;
 }
-.contents .right .list-box .postBox .writer{
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  font-size: 14px;
-  color: grey;
-  width: 100px;
-  flex-shrink: 0;
-}
-.contents .right .list-box .postBox .date{
-  flex-shrink: 0;
-  width: 140px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+
+.contents .right .list-box .postContentBox .description{
+  width: 100%;
+  background: white;
+  border: 1px solid var(--main-color);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: left;
+  padding-left: 20px;
+  margin-top: 10px;
 }
 
 .footer {
