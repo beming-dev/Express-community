@@ -60,7 +60,7 @@ app.post("/processCreate/:boardName", (req, res) =>{
   connection.query(`INSERT INTO post VALUES (NULL, '${req.body.title}', '${req.body.description}', "익명",'${now}', '${req.params.boardName}')`,
    function (error, results, fields) {
      if(error) throw error;
-     res.redirect(`/board/${req.params.boardName}`)
+     res.redirect(`/board/${req.params.boardName}`);
    });
 });
 
@@ -78,13 +78,30 @@ app.get("/board/:boardName", (req, res) =>{
 app.get("/board/:boardName/description/:id", (req, res) =>{
   let css = "/css/description.css";
   connection.query(`SELECT * FROM post WHERE id='${req.params.id}'`, function(error, post, fields) {
-    console.log(post);
     if (error) throw error;
     let content = template.postDescriptionContent(post);
     let category = template.list(req.boardList);
     let html = template.HTML(category, content, css);
     res.send(html);
+  });
 });
+
+app.get("/update/:id", (req, res) =>{
+  connection.query(`SELECT * FROM post WHERE id='${req.params.id}'`, function(error, post, fields) {
+    if(error) throw error;
+    let css = "/css/createTest.css";
+    let content = template.updateContent(post[0]);
+    let category = template.list(req.boardList);
+    let html = template.HTML(category, content, css);
+    res.send(html);
+  });
+});
+
+app.post("/processUpdate/:boardName/:id", (req, res) =>{
+  let query = `UPDATE post SET title='${req.body.title}', description='${req.body.description}' WHERE id=${req.params.id}`
+  connection.query(query, function(error, post, fields) {
+    res.redirect(`/board/${req.params.boardName}`);
+  });
 });
 
 app.listen(3001, () => console.log("Example"));

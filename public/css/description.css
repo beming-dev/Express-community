@@ -11,6 +11,21 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    flex-direction: column;
+  }
+
+  .contents .right .list-box .buttons{
+    margin-top: 20px;
+    align-self: flex-end;
+    margin-right: 50px;
+  }
+  
+  .contents .right .list-box .buttons .btn{
+    background: var(--main-color);
+    color: white;
+    border-color: var(--main-color);
+    margin-left: 10px;
+    margin-right: 10px;
   }
   
   .contents .right .list-box .postContentBox{
@@ -88,6 +103,7 @@
     background: white;
     border-radius: 10px;
   }
+  
 
   @media (max-width: 992px) {
     .contents .right .list-box {
