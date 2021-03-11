@@ -104,4 +104,11 @@ app.post("/processUpdate/:boardName/:id", (req, res) =>{
   });
 });
 
+app.post("/processDelete", (req, res) =>{
+  let query = `DELETE FROM post WHERE id=${req.body.id}`;
+  connection.query(query, function(error, post, fields) {
+    res.redirect(`/board/${req.body.boardName}`);
+  });
+});
+
 app.listen(3001, () => console.log("Example"));
