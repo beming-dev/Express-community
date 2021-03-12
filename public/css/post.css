@@ -69,6 +69,13 @@
   text-overflow: ellipsis;
 }
 
+.contents .right .list-box .pageCount a{
+  font-size: 20px;
+  color: black;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 /* 
 768
 992

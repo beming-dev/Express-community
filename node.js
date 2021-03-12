@@ -37,7 +37,7 @@ app.get('*', (req, res, next) =>{
   //res.send(html);
 app.get("/", (req, res) => {
   let css = "/css/design.css";
-    connection.query(`SELECT * FROM post`, function(error, postList, fields) {
+    connection.query(`SELECT * FROM post ORDER BY id DESC`, function(error, postList, fields) {
       if (error) throw error;
       let content = template.mainContent(req.boardList, postList);
       let category = template.list(req.boardList);
@@ -60,15 +60,22 @@ app.post("/processCreate/:boardName", (req, res) =>{
   connection.query(`INSERT INTO post VALUES (NULL, '${req.body.title}', '${req.body.description}', "익명",'${now}', '${req.params.boardName}')`,
    function (error, results, fields) {
      if(error) throw error;
-     res.redirect(`/board/${req.params.boardName}`);
+     res.redirect(`/board/${req.params.boardName}/1`);
    });
 });
 
-app.get("/board/:boardName", (req, res) =>{
+app.get("/board/:boardName/:page", (req, res, next) =>{
+  connection.query(`SELECT COUNT(id) FROM post WHERE board='${req.params.boardName}'`, function(error, count, fields) {
+    req.postCount = count[0]['COUNT(id)'];
+    next();
+  });
+});
+
+app.get("/board/:boardName/:page", (req, res) =>{
     let css = "/css/post.css";
-    connection.query(`SELECT * FROM post WHERE board='${req.params.boardName}'`, function(error, postList, fields) {
+    connection.query(`SELECT * FROM post WHERE board='${req.params.boardName}' ORDER BY id DESC LIMIT ${(req.params.page-1) * 20}, 20`, function(error, postList, fields) {
       if (error) throw error;
-      let content = template.postContent(req.params.boardName, postList);
+      let content = template.postContent(req.params.boardName, postList, req.postCount);
       let category = template.list(req.boardList);
       let html = template.HTML(category, content, css);
       res.send(html);
@@ -100,14 +107,14 @@ app.get("/update/:id", (req, res) =>{
 app.post("/processUpdate/:boardName/:id", (req, res) =>{
   let query = `UPDATE post SET title='${req.body.title}', description='${req.body.description}' WHERE id=${req.params.id}`
   connection.query(query, function(error, post, fields) {
-    res.redirect(`/board/${req.params.boardName}`);
+    res.redirect(`/board/${req.params.boardName}/1`);
   });
 });
 
 app.post("/processDelete", (req, res) =>{
   let query = `DELETE FROM post WHERE id=${req.body.id}`;
   connection.query(query, function(error, post, fields) {
-    res.redirect(`/board/${req.body.boardName}`);
+    res.redirect(`/board/${req.body.boardName}/1`);
   });
 });
 
