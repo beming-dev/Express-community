@@ -29,17 +29,26 @@
         <div class="left">
         </div>
         <div class="right">
-            <div class="list-box d-flex">
-                <div class="postContentBox d-flex">
-                    <div class="title">민관</div>
-                    <div class="writer">익명</div>
-                    <div class="date">2020</div>
-                    <div class="description">안녕하세요</div>
-                </div>
-                <div class="buttons">
-                    <a href="/update" type="button" class="btn btn-lg btn-outline-success">수정</a>
-                    <a href="/process_delete" type="button" class="btn btn-lg btn-outline-success">삭제</a>
-                </div>
+            <div class="list-box">
+                <form class="registerForm">
+                    <div class="form-group d-flex">
+                      <label for="formGroupExampleInput">아이디</label>
+                      <input name="id" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+                    </div>
+                    <div class="form-group d-flex">
+                      <label for="formGroupExampleInput2">비밀번호</label>
+                      <input name="password" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+                    </div>
+                    <div class="form-group d-flex">
+                        <label for="formGroupExampleInput2">이메일</label>
+                        <input name="email" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+                    </div>
+                    <div class="form-group d-flex">
+                        <label for="formGroupExampleInput2">닉네임</label>
+                        <input name="name" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+                    </div>
+                    <button class="registerSubmitBtn">등록</button>
+                  </form>
             </div>
         </div>
     </div>

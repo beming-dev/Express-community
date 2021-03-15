@@ -118,4 +118,24 @@ app.post("/processDelete", (req, res) =>{
   });
 });
 
+app.get("/register", (req, res) =>{
+  let css = "/css/register.css";
+  let content = template.registerContent();
+  let category = template.list(req.boardList);
+  let html = template.HTML(category, content, css);
+  res.send(html);
+});
+
+app.post("/processRegister", (req, res) =>{
+  let id = req.body.id;
+  let password = req.body.password;
+  let email = req.body.email;
+  let name = req.body.name;
+
+  if(!template.checkEmail(email)){
+    alert("이메일 형식이 맞지 않습니다.");
+  }
+  res.redirect(`/register`);
+});
+
 app.listen(3001, () => console.log("Example"));
