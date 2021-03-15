@@ -35,6 +35,18 @@
     font-size: 50px;
     margin-left: 10px;
   }
+
+  .navbar .login {
+    color: white;
+    justify-self: flex-end;
+    margin-right: 30px;
+  }
+
+  .navbar .register {
+    color: white;
+    justify-self: flex-end;
+    margin-right: 30px;
+  }
   
   .navbar .nav-link {
     min-width: 100%;
