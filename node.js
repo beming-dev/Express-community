@@ -132,11 +132,7 @@ app.get("/register", (req, res) =>{
 });
 
 app.post("/processRegister", (req, res) =>{
-  let id = req.body.id;
-  let password = req.body.password;
-  let email = req.body.email;
-  let name = req.body.name;
-
+  let {id, password, email, name} = req.body;
 
   //비동기 처리로 수정 필요
   let salt=``;
@@ -170,6 +166,8 @@ app.post("/processLogin", (req, res) =>{
           crypto.pbkdf2(password, passwordData[0].salt, 100000, 64, 'sha512', (err, key) => {
             if(passwordData[0].password == key.toString('base64')) {
               //로그인 성공
+              console.log("로그인 성공");
+              res.redirect("/");
             }else{
               //비밀번호 불일치
               res.redirect("/");
