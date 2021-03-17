@@ -66,16 +66,18 @@ app.post("/processCreate/:boardName", (req, res) =>{
 });
 
 app.get("/board/:boardName/:page", (req, res, next) =>{
-  connection.query(`SELECT COUNT(id) FROM post WHERE board='${req.params.boardName}'`, function(error, count, fields) {
+  let query = `SELECT COUNT(id) FROM post WHERE board=?`;
+  connection.query(query, [req.params.boardName], function(error, count, fields) {
     req.postCount = count[0]['COUNT(id)'];
     next();
   });
 });
 
 app.get("/board/:boardName/:page", (req, res) =>{
-    let css = "/css/post.css";
-    connection.query(`SELECT * FROM post WHERE board='${req.params.boardName}' ORDER BY id DESC LIMIT ${(req.params.page-1) * 20}, 20`, function(error, postList, fields) {
+  let query = `SELECT * FROM post WHERE board=? ORDER BY id DESC LIMIT ?, 20`;
+    connection.query(query, [req.params.boardName, (req.params.page-1) * 20],function(error, postList, fields) {
       if (error) throw error;
+      let css = "/css/post.css";
       let content = template.postContent(req.params.boardName, postList, req.postCount);
       let category = template.list(req.boardList);
       let html = template.HTML(category, content, css);
@@ -84,8 +86,9 @@ app.get("/board/:boardName/:page", (req, res) =>{
 });
 
 app.get("/board/:boardName/description/:id", (req, res) =>{
-  let css = "/css/description.css";
-  connection.query(`SELECT * FROM post WHERE id='${req.params.id}'`, function(error, post, fields) {
+  let query = `SELECT * FROM post WHERE id=?`
+  connection.query(query,[req.params.id], function(error, post, fields) {
+    let css = "/css/description.css";
     if (error) throw error;
     let content = template.postDescriptionContent(post);
     let category = template.list(req.boardList);
@@ -95,7 +98,8 @@ app.get("/board/:boardName/description/:id", (req, res) =>{
 });
 
 app.get("/update/:id", (req, res) =>{
-  connection.query(`SELECT * FROM post WHERE id='${req.params.id}'`, function(error, post, fields) {
+  let query = `SELECT * FROM post WHERE id=?`;
+  connection.query(query, [req.params.id], function(error, post, fields) {
     if(error) throw error;
     let css = "/css/createTest.css";
     let content = template.updateContent(post[0]);
@@ -106,15 +110,15 @@ app.get("/update/:id", (req, res) =>{
 });
 
 app.post("/processUpdate/:boardName/:id", (req, res) =>{
-  let query = `UPDATE post SET title='${req.body.title}', description='${req.body.description}' WHERE id=${req.params.id}`
-  connection.query(query, function(error, post, fields) {
+  let query = `UPDATE post SET title=?, description=? WHERE id=?`
+  connection.query(query, [req.body.title, req.body.description, req.params.id], function(error, post, fields) {
     res.redirect(`/board/${req.params.boardName}/1`);
   });
 });
 
 app.post("/processDelete", (req, res) =>{
-  let query = `DELETE FROM post WHERE id=${req.body.id}`;
-  connection.query(query, function(error, post, fields) {
+  let query = `DELETE FROM post WHERE id=?`;
+  connection.query(query, [req.body.id], function(error, post, fields) {
     res.redirect(`/board/${req.body.boardName}/1`);
   });
 });
@@ -159,13 +163,10 @@ app.post("/processLogin", (req, res) =>{
   let id = req.body.id;
   let password = req.body.password;
 
-  console.log(id);
-
-  connection.query(`SELECT id FROM user where id=${id}`, function(error, data){
+  connection.query(`SELECT id FROM user where id=?`, [id], function(error, data){
     if(data){
       //id존재
-      console.log(password);
-      connection.query(`SELECT password, salt FROM user where id=${id}`, function(error, passwordData) {
+      connection.query(`SELECT password, salt FROM user where id=?`, [id], function(error, passwordData) {
           crypto.pbkdf2(password, passwordData[0].salt, 100000, 64, 'sha512', (err, key) => {
             if(passwordData[0].password == key.toString('base64')) {
               //로그인 성공
