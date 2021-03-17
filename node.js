@@ -1,8 +1,9 @@
-const fs = require("fs");
-const path = require("path");
-const bodyParser = require("body-parser");
 // const sanitizeHtml = require("sanitize-html");
+const bodyParser = require("body-parser");
 const express = require("express");
+const crypto = require('crypto');
+const path = require("path");
+const fs = require("fs");
 const app = express();
 
 let mysql      = require('mysql');
@@ -132,10 +133,53 @@ app.post("/processRegister", (req, res) =>{
   let email = req.body.email;
   let name = req.body.name;
 
-  if(!template.checkEmail(email)){
-    alert("이메일 형식이 맞지 않습니다.");
-  }
-  res.redirect(`/register`);
+
+  //비동기 처리로 수정 필요
+  let salt=``;
+  let realpass = ``;
+  crypto.randomBytes(64, (err, buf) => {
+    crypto.pbkdf2(password, buf.toString('base64'), 100000, 64, 'sha512', (err, key) => {
+      realpass += key.toString('base64');
+      salt += buf.toString('base64');
+
+      if(template.checkEmail(email)){
+        let query = `INSERT INTO user(id, password, name, email, salt) VALUES('${id}', '${realpass}', '${name}', '${email}', '${salt}')`;
+         connection.query(query, function(error){
+          if(error) throw(error);
+          res.redirect(`/register`);
+        });
+      }else{
+        res.redirect('/');
+      }
+    });
+  });
+});
+
+app.post("/processLogin", (req, res) =>{
+  let id = req.body.id;
+  let password = req.body.password;
+
+  console.log(id);
+
+  connection.query(`SELECT id FROM user where id=${id}`, function(error, data){
+    if(data){
+      //id존재
+      console.log(password);
+      connection.query(`SELECT password, salt FROM user where id=${id}`, function(error, passwordData) {
+          crypto.pbkdf2(password, passwordData[0].salt, 100000, 64, 'sha512', (err, key) => {
+            if(passwordData[0].password == key.toString('base64')) {
+              //로그인 성공
+            }else{
+              //비밀번호 불일치
+              res.redirect("/");
+            }
+        });
+      });
+    }else{
+      //id미존재
+      res.redirect("/");
+    }
+  });
 });
 
 app.listen(3001, () => console.log("Example"));

@@ -8,3 +8,9 @@ loginBtn.addEventListener('click', ()=>{
     else loginBack.style.display = 'none';
 });
 
+let loginCloseBtn = document.getElementsByClassName("loginClose")[0];
+
+loginCloseBtn.addEventListener('click', ()=>{
+    if(loginBack.style.display == 'flex')
+        loginBack.style.display = 'none';
+});

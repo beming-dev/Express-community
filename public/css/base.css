@@ -57,21 +57,50 @@
     }
 }
 
+.loginPage .form-group{
+  margin-right: 30px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginPage .form-group label{
+  width: 100px;
+}
+
+.loginPage .loginClose{
+  align-self: flex-end;
+  justify-self: flex-end;
+  position: relative;
+  top: -70px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 40px;
+  background-color: var(--main-color);
+  outline: none;
+}
+
 .loginPage input{
     width: 200px;
 }
 
 .loginSubmit{
+  color: black;
   margin-top: 100px;
   border: 1px solid black;
   border-radius: 10px;
   background: white;
+  background-color: var(--main-color);
 }
 
 .registerSubmit{
+  color: black;
   border: 1px solid black;
   border-radius: 10px;
   background: white;
+  background-color: var(--main-color);
 }
 
 
