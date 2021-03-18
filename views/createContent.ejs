@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/base.css">
+        <link rel="stylesheet" href="/css/createTest.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="loginBack">
+            <form action="/processLogin" class="loginPage" method="post">
+                <button class="loginClose" type="button">X</button>
+                <div class="form-group d-flex">
+                    <label for="formGroupExampleInput">아이디</label>
+                    <input name="id" type="text" class="form-control" id="formGroupExampleInput">
+                </div>
+                <div class="form-group d-flex">
+                    <label for="formGroupExampleInput">비밀번호</label>
+                    <input name="password" type="text" class="form-control" id="formGroupExampleInput">
+                </div>
+                <button class="btn btn-primary loginSubmit" type="submit">로그인</button>
+                <a href="/register" class="btn btn-primary registerSubmit">회원가입</a>
+            </form>
+        </div>
+        <nav class="navbar navbar-expand-none">
+            <a href="/" class="navbar-brand">DevCom</a>
+            <div class="rightNav">
+                <button class="login">login</button>
+                <a href="./register" class="register">register</a>
+                <button class="navbar-toggler navbar-dark type="button" data-toggle = "collapse" data-target="#main-navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="main-navigation">
+                <ul class="navbar-nav">
+
+                <% for(let i=0; i<boardList.length; i++) {%>
+                    <a class="nav-link" href="/board/<%=boardList[i].boardEN%>/1">
+                        <li class="nav-item"><%=boardList[i].board%></li>
+                    </a> 
+                <% }%>
+                </ul>
+            </div>
+        </nav>
+    
+    
+        <div class="container-fluid contents d-flex">
+            <div class="left">
+            </div>
+            <div class="right">
+                <!-- ${content} -->
+                <form action="/processCreate/<%=boardName%>" class="form-group name="postInfo" method="post">
+                    <input class="form-control" type="text" placeholder="title" name="title">
+                    <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="13" placeholder="description"></textarea>
+                    <button type="submit" class="btn btn-primary mb-2">올리기</button>
+                </form>
+            </div>
+        </div>
+    
+        <%- include('footer.ejs') %>

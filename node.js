@@ -6,7 +6,7 @@ const path = require("path");
 const fs = require("fs");
 const app = express();
 
-let mysql      = require('mysql');
+const mysql = require('mysql');
 let connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'mingwan',
@@ -17,6 +17,7 @@ connection.connect();
 
 const template = require("./lib/template");
 const { request } = require("http");
+const { postDescriptionContent } = require("./lib/template");
 
 app.set("view engine", "ejs");
 app.engine("html", require("ejs").renderFile);
@@ -37,22 +38,32 @@ app.get('*', (req, res, next) =>{
   //let html = template.HTML();
   //res.send(html);
 app.get("/", (req, res) => {
-  let css = "/css/design.css";
-    connection.query(`SELECT * FROM post ORDER BY id DESC`, function(error, postList, fields) {
+    connection.query(`SELECT * FROM post ORDER BY id DESC`, function(error, postLists, fields) {
       if (error) throw error;
-      let content = template.mainContent(req.boardList, postList);
-      let category = template.list(req.boardList);
-      let html = template.HTML(category, content, css);
-      res.send(html);
+      // let content = template.mainContent(req.boardList, postList);
+      // let category = template.list(req.boardList);
+      // let html = template.HTML(category, content, css);
+      // res.send(html);
+
+      res.render("mainContent", 
+        {
+          boardList: req.boardList,
+          postList : postLists
+        });
   });
 });
 
 app.get("/create/:boardName", (req, res) => {
-    let css = "/css/createTest.css";
-    let content = template.createContent(req.params.boardName);
-    let category = template.list(req.boardList);
-    let html = template.HTML(category, content, css);
-    res.send(html);
+    // let css = "/css/createTest.css";
+    // let content = template.createContent(req.params.boardName);
+    // let category = template.list(req.boardList);
+    // let html = template.HTML(category, content, css);
+    // res.send(html);
+
+    res.render("createContent", {
+      boardList: req.boardList,
+      boardName: req.params.boardName,
+    });
 });
 
 //여기를 하세요
@@ -77,23 +88,35 @@ app.get("/board/:boardName/:page", (req, res) =>{
   let query = `SELECT * FROM post WHERE board=? ORDER BY id DESC LIMIT ?, 20`;
     connection.query(query, [req.params.boardName, (req.params.page-1) * 20],function(error, postList, fields) {
       if (error) throw error;
-      let css = "/css/post.css";
-      let content = template.postContent(req.params.boardName, postList, req.postCount);
-      let category = template.list(req.boardList);
-      let html = template.HTML(category, content, css);
-      res.send(html);
+      // let css = "/css/post.css";
+      // let content = template.postContent(req.params.boardName, postList, req.postCount);
+      // let category = template.list(req.boardList);
+      // let html = template.HTML(category, content, css);
+      // res.send(html);
+
+      res.render("postContent", {
+        boardList:req.boardList,
+        boardName:req.params.boardName,
+        postList:postList,
+        postCount:req.postCount,
+      });
   });
 });
 
 app.get("/board/:boardName/description/:id", (req, res) =>{
   let query = `SELECT * FROM post WHERE id=?`
   connection.query(query,[req.params.id], function(error, post, fields) {
-    let css = "/css/description.css";
     if (error) throw error;
-    let content = template.postDescriptionContent(post);
-    let category = template.list(req.boardList);
-    let html = template.HTML(category, content, css);
-    res.send(html);
+    // let css = "/css/description.css";
+    // let content = template.postDescriptionContent(post);
+    // let category = template.list(req.boardList);
+    // let html = template.HTML(category, content, css);
+    // res.send(html);
+
+    res.render("postDescriptionContent", {
+      boardList:req.boardList,
+      post:post,
+    })
   });
 });
 
@@ -101,11 +124,15 @@ app.get("/update/:id", (req, res) =>{
   let query = `SELECT * FROM post WHERE id=?`;
   connection.query(query, [req.params.id], function(error, post, fields) {
     if(error) throw error;
-    let css = "/css/createTest.css";
-    let content = template.updateContent(post[0]);
-    let category = template.list(req.boardList);
-    let html = template.HTML(category, content, css);
-    res.send(html);
+    // let css = "/css/createTest.css";
+    // let content = template.updateContent(post[0]);
+    // let category = template.list(req.boardList);
+    // let html = template.HTML(category, content, css);
+    // res.send(html);
+    res.render("updateContent", {
+      boardList:req.boardList,
+      content:post[0],
+    })
   });
 });
 
@@ -124,11 +151,14 @@ app.post("/processDelete", (req, res) =>{
 });
 
 app.get("/register", (req, res) =>{
-  let css = "/css/register.css";
-  let content = template.registerContent();
-  let category = template.list(req.boardList);
-  let html = template.HTML(category, content, css);
-  res.send(html);
+  // let css = "/css/register.css";
+  // let content = template.registerContent();
+  // let category = template.list(req.boardList);
+  // let html = template.HTML(category, content, css);
+  // res.send(html);
+  res.render("registerContent", {
+    boardList:req.boardList,
+  });
 });
 
 app.post("/processRegister", (req, res) =>{
