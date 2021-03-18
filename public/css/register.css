@@ -31,6 +31,12 @@
     width: 140px;
     line-height: 38px;
   }
+
+  .contents .right .list-box .registerForm .pc::before{
+    content: "비밀번호가 일치하지 않습니다.";
+    font-size: 10px;
+    color: red;
+  }
   
   .contents .right .list-box .registerForm .registerSubmitBtn{
     margin-top: 100px;
@@ -41,4 +47,20 @@
     color: white;
     font-size: 20px;
     border-radius: 10px;
+  }
+
+  @media (max-width: 992px) {
+    .contents .right .list-box {
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+    }
+    .contents .right .list-box .list-group {
+      top: 0px;
+      margin-top: 50px;
+      margin-bottom: 50px;
+    }
+    .contents .right .list-box {
+      width: 100%;
+    }
   }
