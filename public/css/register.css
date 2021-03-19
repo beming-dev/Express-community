@@ -25,14 +25,25 @@
   
   .contents .right .list-box .registerForm .form-group{
     margin-top: 20px;
+    flex-shrink: 0;
   }
   
   .contents .right .list-box .registerForm label{
+    flex-shrink: 0;
     width: 140px;
     line-height: 38px;
   }
 
-  .contents .right .list-box .registerForm .pc::before{
+  .contents .right .list-box .registerForm .pc{
+    height: 0px;
+    margin: 0px;
+    padding: 0px;
+  }
+  .contents .right .list-box .registerForm .pc::after{
+    text-align: center;
+    position: relative;
+    bottom: 30px;
+    left: 90px;
     content: "비밀번호가 일치하지 않습니다.";
     font-size: 10px;
     color: red;

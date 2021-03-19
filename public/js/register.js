@@ -1,13 +1,18 @@
 let password = document.getElementById("password");
 let passwordCheck = document.getElementById("passwordCheck");
+let match = document.getElementsByClassName("match")[0];
 
-password.addEventListener('change', (e)=>{
-    if(password.innerText === passwordCheck.innerText){
-
+password.addEventListener('keyup', (e)=>{
+    if(password.value == passwordCheck.value){
+        match.classList.remove("pc");
+    }else{
+        match.classList.add("pc");
     }
 });
-passwordCheck.addEventListener('change', (e)=>{
-    if(password.innerText === passwordCheck.innerText){
-
+passwordCheck.addEventListener('keyup', (e)=>{
+    if(password.value == passwordCheck.value){
+        match.classList.remove("pc");
+    }else{
+        match.classList.add("pc");
     }
 })
