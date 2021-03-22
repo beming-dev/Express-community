@@ -66,10 +66,10 @@ app.get("/create/:boardName", (req, res) => {
     });
 });
 
-//여기를 하세요
 app.post("/processCreate/:boardName", (req, res) =>{
   let now = template.getDate(new Date());
-  connection.query(`INSERT INTO post VALUES (NULL, '${req.body.title}', '${req.body.description}', '${req.session.name}', '${now}', '${req.params.boardName}')`,
+  let query = `INSERT INTO post VALUES (NULL, ?, ?, '${req.session.name}', '${now}', ?)`;
+  connection.query(query,[req.body.title, req.body.description, req.params.boardName],
    function (error, results, fields) {
      if(error) throw error;
      res.redirect(`/board/${req.params.boardName}/1`);
@@ -159,8 +159,8 @@ app.post("/processRegister", (req, res) =>{
       salt += buf.toString('base64');
 
       if(template.checkEmail(email)){
-        let query = `INSERT INTO user(id, password, name, email, salt) VALUES('${id}', '${realpass}', '${name}', '${email}', '${salt}')`;
-         connection.query(query, function(error){
+        let query = `INSERT INTO user(id, password, name, email, salt) VALUES(?, '${realpass}', ?, ?, '${salt}')`;
+         connection.query(query,[id, name, email] ,function(error){
           if(error) throw(error);
           res.redirect(`/register`);
         });
