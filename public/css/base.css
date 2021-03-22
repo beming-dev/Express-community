@@ -132,6 +132,20 @@
   cursor: pointer;
 }
 
+.navbar .logout {
+  background: var(--main-color);
+  border: none;
+  color: white;
+  justify-self: flex-end;
+  margin-right: 30px;
+  outline: none;
+}
+
+.navbar .logout:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .navbar .register {
   background: var(--main-color);
   border: none;
@@ -168,6 +182,7 @@
 
 .navbar .navbar-toggler {
   display: none;
+  outline: none;
 }
 
 #main-navigation {

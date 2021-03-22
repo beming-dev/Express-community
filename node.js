@@ -43,19 +43,14 @@ app.get('*', (req, res, next) =>{
   });
 });
 
-
-  //let html = template.HTML();
-  //res.send(html);
 app.get("/", (req, res) => {
     connection.query(`SELECT * FROM post ORDER BY id DESC`, function(error, postLists, fields) {
       if (error) throw error;
-      // let content = template.mainContent(req.boardList, postList);
-      // let category = template.list(req.boardList);
-      // let html = template.HTML(category, content, css);
-      // res.send(html);
-      console.log(req.session.password);
+      console.log(req.session.isLogined);
       res.render("mainContent", 
         {
+          isLogined: req.session.isLogined,
+          css: "design.css",
           boardList: req.boardList,
           postList : postLists
         });
@@ -63,13 +58,9 @@ app.get("/", (req, res) => {
 });
 
 app.get("/create/:boardName", (req, res) => {
-    // let css = "/css/createTest.css";
-    // let content = template.createContent(req.params.boardName);
-    // let category = template.list(req.boardList);
-    // let html = template.HTML(category, content, css);
-    // res.send(html);
-
     res.render("createContent", {
+      isLogined: req.session.isLogined,
+      css: "createTest.css",
       boardList: req.boardList,
       boardName: req.params.boardName,
     });
@@ -97,13 +88,9 @@ app.get("/board/:boardName/:page", (req, res) =>{
   let query = `SELECT * FROM post WHERE board=? ORDER BY id DESC LIMIT ?, 20`;
     connection.query(query, [req.params.boardName, (req.params.page-1) * 20],function(error, postList, fields) {
       if (error) throw error;
-      // let css = "/css/post.css";
-      // let content = template.postContent(req.params.boardName, postList, req.postCount);
-      // let category = template.list(req.boardList);
-      // let html = template.HTML(category, content, css);
-      // res.send(html);
-
       res.render("postContent", {
+        isLogined: req.session.isLogined,
+        css: "post.css",
         boardList:req.boardList,
         boardName:req.params.boardName,
         postList:postList,
@@ -116,13 +103,9 @@ app.get("/board/:boardName/description/:id", (req, res) =>{
   let query = `SELECT * FROM post WHERE id=?`
   connection.query(query,[req.params.id], function(error, post, fields) {
     if (error) throw error;
-    // let css = "/css/description.css";
-    // let content = template.postDescriptionContent(post);
-    // let category = template.list(req.boardList);
-    // let html = template.HTML(category, content, css);
-    // res.send(html);
-
     res.render("postDescriptionContent", {
+      isLogined: req.session.isLogined,
+      css: "description.css",
       boardList:req.boardList,
       post:post,
     })
@@ -133,12 +116,9 @@ app.get("/update/:id", (req, res) =>{
   let query = `SELECT * FROM post WHERE id=?`;
   connection.query(query, [req.params.id], function(error, post, fields) {
     if(error) throw error;
-    // let css = "/css/createTest.css";
-    // let content = template.updateContent(post[0]);
-    // let category = template.list(req.boardList);
-    // let html = template.HTML(category, content, css);
-    // res.send(html);
     res.render("updateContent", {
+      isLogined: req.session.isLogined,
+      css: "createTest.css",
       boardList:req.boardList,
       content:post[0],
     })
@@ -160,12 +140,9 @@ app.post("/processDelete", (req, res) =>{
 });
 
 app.get("/register", (req, res) =>{
-  // let css = "/css/register.css";
-  // let content = template.registerContent();
-  // let category = template.list(req.boardList);
-  // let html = template.HTML(category, content, css);
-  // res.send(html);
   res.render("registerContent", {
+    isLogined: req.session.isLogined,
+    css: "register.css",
     boardList:req.boardList,
   });
 });
@@ -206,8 +183,12 @@ app.post("/processLogin", (req, res) =>{
             if(passwordData[0].password == key.toString('base64')) {
               //로그인 성공
               console.log("로그인 성공");
+              // req.session.destory(function(err){
+              //   req.session;
+              // });
               req.session.id = data;
               req.session.password = key.toString('base64');
+              req.session.isLogined = true;
               req.session.save(() =>{
                 res.redirect("/");
               })
@@ -224,8 +205,11 @@ app.post("/processLogin", (req, res) =>{
   });
 });
 
-app.post("/logout", (req, res)=>{
-  req.session.destory(function(err){});
+app.get("/logout", (req, res)=>{
+  // it doesnt work
+  // req.session.destory(function(err){});
+  sessionStore.clear();
+  res.redirect("/");
 })
 
 app.listen(3001, () => console.log("Example"));

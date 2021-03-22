@@ -1,87 +1,36 @@
-<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/base.css">
-        <link rel="stylesheet" href="/css/design.css">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        <div class="loginBack">
-            <form action="/processLogin" class="loginPage" method="post">
-                <button class="loginClose" type="button">X</button>
-                <div class="form-group d-flex">
-                    <label for="formGroupExampleInput">아이디</label>
-                    <input name="id" type="text" class="form-control" id="formGroupExampleInput">
-                </div>
-                <div class="form-group d-flex">
-                    <label for="formGroupExampleInput">비밀번호</label>
-                    <input name="password" type="text" class="form-control" id="formGroupExampleInput">
-                </div>
-                <button class="btn btn-primary loginSubmit" type="submit">로그인</button>
-                <a href="/register" class="btn btn-primary registerSubmit">회원가입</a>
-            </form>
-        </div>
-        <nav class="navbar navbar-expand-none">
-            <a href="/" class="navbar-brand">DevCom</a>
-            <div class="rightNav">
-                <button class="login">login</button>
-                <a href="./register" class="register">register</a>
-                <button class="navbar-toggler navbar-dark type="button" data-toggle = "collapse" data-target="#main-navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse" id="main-navigation">
-                <ul class="navbar-nav">
-                <%console.log(boardList)%>
-
-                <% for(let i=0; i<boardList.length; i++) {%>
-                    <a class="nav-link" href="/board/<%=boardList[i].boardEN%>/1">
-                        <li class="nav-item"><%=boardList[i].board%></li>
-                    </a> 
-                <% }%>
-                </ul>
-            </div>
-        </nav>
+<%- include('header.ejs') %>  
     
-    
-        <div class="container-fluid contents d-flex">
-            <div class="left">
-            </div>
-            <div class="right">
-                <!-- ${content} -->
-                <div class="list-box d-flex">
-                    <% for(let i=0; i<boardList.length; i++){ %>
-                        <% let cnt=0; %>
-                        
-                        <div class="list-group">
-                        <a href="/board/<%= boardList[i].boardEN %>/1" class="more"><%=boardList[i].board%>/ 더 보기</a>
-                        
-                        <% for(let j=0; j<postList.length; j++){ %>
-                            <% const offset = new Date().getTimezoneOffset() * 60000; %>
-                            <% let today = new Date(postList[j].date - offset); %>
-                            <% let now = new Date(today).toISOString().slice(0, 19).replace('T', ' '); %>
+<div class="container-fluid contents d-flex">
+    <div class="left">
+    </div>
+    <div class="right">
+        <!-- ${content} -->
+        <div class="list-box d-flex">
+            <% for(let i=0; i<boardList.length; i++){ %>
+                <% let cnt=0; %>
+                
+                <div class="list-group">
+                <a href="/board/<%= boardList[i].boardEN %>/1" class="more"><%=boardList[i].board%>/ 더 보기</a>
+                
+                <% for(let j=0; j<postList.length; j++){ %>
+                    <% const offset = new Date().getTimezoneOffset() * 60000; %>
+                    <% let today = new Date(postList[j].date - offset); %>
+                    <% let now = new Date(today).toISOString().slice(0, 19).replace('T', ' '); %>
 
-                            <% if(postList[j].board == boardList[i].boardEN){ %>
-                                <% if(cnt == 7) break; %>
-                                <div class="post d-flex">
-                                    <a href="/board/<%= postList[j].board %>/description/<%= postList[j].id %>" class="title"><%= postList[j].title %></a>
-                                    <span class="writer"><%= postList[j].writer %></span>
-                                    <span class="date"><%= now %></span>
-                                </div> 
-                                <% cnt++; %>
-                            <% }%>
-                        <% }%>    
-                        </div>
+                    <% if(postList[j].board == boardList[i].boardEN){ %>
+                        <% if(cnt == 7) break; %>
+                        <div class="post d-flex">
+                            <a href="/board/<%= postList[j].board %>/description/<%= postList[j].id %>" class="title"><%= postList[j].title %></a>
+                            <span class="writer"><%= postList[j].writer %></span>
+                            <span class="date"><%= now %></span>
+                        </div> 
+                        <% cnt++; %>
                     <% }%>
+                <% }%>    
                 </div>
-            </div>
+            <% }%>
         </div>
-    
-        <%- include('footer.ejs') %>
+    </div>
+</div>
+
+<%- include('footer.ejs') %>
