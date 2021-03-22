@@ -148,7 +148,10 @@ app.get("/register", (req, res) =>{
 });
 
 app.post("/processRegister", (req, res) =>{
-  let {id, password, email, name} = req.body;
+  //비밀번호 유효성검사 필요
+  let {id, password, passwordCheck, email, name} = req.body;
+
+  if(password != passwordCheck) res.redirect("/register");
 
   //비동기 처리로 수정 필요
   let salt=``;
