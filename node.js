@@ -1,4 +1,6 @@
 // const sanitizeHtml = require("sanitize-html");
+const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
 const bodyParser = require("body-parser");
 const express = require("express");
 const crypto = require('crypto');
@@ -14,6 +16,7 @@ let connection = mysql.createConnection({
   database : 'opentutorials'
 });
 connection.connect();
+let sessionStore = new MySQLStore({}, connection);
 
 const template = require("./lib/template");
 const { request } = require("http");
@@ -23,6 +26,12 @@ app.set("view engine", "ejs");
 app.engine("html", require("ejs").renderFile);
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended:false}));
+app.use(session({
+  secret:"asdfasffdsa",
+  resave:false,
+  saveUninitialized:true,
+  store: sessionStore
+}))
 
 
 //middleware
@@ -44,7 +53,7 @@ app.get("/", (req, res) => {
       // let category = template.list(req.boardList);
       // let html = template.HTML(category, content, css);
       // res.send(html);
-
+      console.log(req.session.password);
       res.render("mainContent", 
         {
           boardList: req.boardList,
@@ -197,7 +206,11 @@ app.post("/processLogin", (req, res) =>{
             if(passwordData[0].password == key.toString('base64')) {
               //로그인 성공
               console.log("로그인 성공");
-              res.redirect("/");
+              req.session.id = data;
+              req.session.password = key.toString('base64');
+              req.session.save(() =>{
+                res.redirect("/");
+              })
             }else{
               //비밀번호 불일치
               res.redirect("/");
@@ -210,5 +223,9 @@ app.post("/processLogin", (req, res) =>{
     }
   });
 });
+
+app.post("/logout", (req, res)=>{
+  req.session.destory(function(err){});
+})
 
 app.listen(3001, () => console.log("Example"));
