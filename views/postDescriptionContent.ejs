@@ -17,7 +17,9 @@
                 <div class="description"><%=post[0].description%></div>
             </div>
             <div class="buttons d-flex">
+                <%if(session.name == post[0].writer){%>
                 <a href="/update/<%=post[0].id%>" type="button" class="btn btn-lg btn-outline-success">수정</a>
+                <%}%>
                 <form action="/processDelete" method="post">
                     <input type="hidden" name="id", value="<%=post[0].id%>">
                     <input type="hidden" name="boardName", value="<%=post[0].board%>">

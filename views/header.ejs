@@ -31,7 +31,7 @@
         <nav class="navbar navbar-expand-none">
             <a href="/" class="navbar-brand">DevCom</a>
             <div class="rightNav">
-                <%if(isLogined){%>
+                <%if(session.isLogined){%>
                     <a href="/logout" class="logout">logout</a>    
                 <%}else{%>
                     <button class="login">login</button>

@@ -25,7 +25,9 @@
             <% } %>
         </div>
         </div>
+        <%if(session.isLogined){%>
         <a href="/create/<%=boardName%>" class="create btn btn-primary">글쓰기</a>
+        <%}%>
         </div>
     </div>
 </div>

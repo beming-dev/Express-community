@@ -49,7 +49,7 @@ app.get("/", (req, res) => {
       console.log(req.session.isLogined);
       res.render("mainContent", 
         {
-          isLogined: req.session.isLogined,
+          session: req.session,
           css: "design.css",
           boardList: req.boardList,
           postList : postLists
@@ -59,7 +59,7 @@ app.get("/", (req, res) => {
 
 app.get("/create/:boardName", (req, res) => {
     res.render("createContent", {
-      isLogined: req.session.isLogined,
+      session: req.session,
       css: "createTest.css",
       boardList: req.boardList,
       boardName: req.params.boardName,
@@ -69,7 +69,7 @@ app.get("/create/:boardName", (req, res) => {
 //여기를 하세요
 app.post("/processCreate/:boardName", (req, res) =>{
   let now = template.getDate(new Date());
-  connection.query(`INSERT INTO post VALUES (NULL, '${req.body.title}', '${req.body.description}', "익명",'${now}', '${req.params.boardName}')`,
+  connection.query(`INSERT INTO post VALUES (NULL, '${req.body.title}', '${req.body.description}', '${req.session.name}', '${now}', '${req.params.boardName}')`,
    function (error, results, fields) {
      if(error) throw error;
      res.redirect(`/board/${req.params.boardName}/1`);
@@ -89,7 +89,7 @@ app.get("/board/:boardName/:page", (req, res) =>{
     connection.query(query, [req.params.boardName, (req.params.page-1) * 20],function(error, postList, fields) {
       if (error) throw error;
       res.render("postContent", {
-        isLogined: req.session.isLogined,
+        session: req.session,
         css: "post.css",
         boardList:req.boardList,
         boardName:req.params.boardName,
@@ -104,7 +104,7 @@ app.get("/board/:boardName/description/:id", (req, res) =>{
   connection.query(query,[req.params.id], function(error, post, fields) {
     if (error) throw error;
     res.render("postDescriptionContent", {
-      isLogined: req.session.isLogined,
+      session: req.session,
       css: "description.css",
       boardList:req.boardList,
       post:post,
@@ -117,7 +117,7 @@ app.get("/update/:id", (req, res) =>{
   connection.query(query, [req.params.id], function(error, post, fields) {
     if(error) throw error;
     res.render("updateContent", {
-      isLogined: req.session.isLogined,
+      session: req.session,
       css: "createTest.css",
       boardList:req.boardList,
       content:post[0],
@@ -141,7 +141,7 @@ app.post("/processDelete", (req, res) =>{
 
 app.get("/register", (req, res) =>{
   res.render("registerContent", {
-    isLogined: req.session.isLogined,
+    session: req.session,
     css: "register.css",
     boardList:req.boardList,
   });
@@ -178,7 +178,7 @@ app.post("/processLogin", (req, res) =>{
   connection.query(`SELECT id FROM user where id=?`, [id], function(error, data){
     if(data){
       //id존재
-      connection.query(`SELECT password, salt FROM user where id=?`, [id], function(error, passwordData) {
+      connection.query(`SELECT password, salt, name FROM user where id=?`, [id], function(error, passwordData) {
           crypto.pbkdf2(password, passwordData[0].salt, 100000, 64, 'sha512', (err, key) => {
             if(passwordData[0].password == key.toString('base64')) {
               //로그인 성공
@@ -187,7 +187,7 @@ app.post("/processLogin", (req, res) =>{
               //   req.session;
               // });
               req.session.id = data;
-              req.session.password = key.toString('base64');
+              req.session.name = passwordData[0].name;
               req.session.isLogined = true;
               req.session.save(() =>{
                 res.redirect("/");
@@ -200,6 +200,7 @@ app.post("/processLogin", (req, res) =>{
       });
     }else{
       //id미존재
+      console.log("일치하는 아이디가 없습니다.");
       res.redirect("/");
     }
   });
