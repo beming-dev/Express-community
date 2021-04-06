@@ -19,7 +19,7 @@
     padding: 0;
     margin: 0;
     outline: none;
-    background: #f0ffff;
+    background: #D9BBA0;
     /* font-family: 'Noto Sans KR', sans-serif; */
     font-family: 'Jua', sans-serif;
   }
@@ -218,7 +218,7 @@
 .footer {
   width: 100%;
   height: 200px;
-  background: #405645;
+  background: #8C633F;
 }
 @media (max-width: 1200px) {
   .navbar .navbar-toggler {
