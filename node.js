@@ -4,14 +4,17 @@ const MySQLStore = require('express-mysql-session')(session);
 const bodyParser = require("body-parser");
 const express = require("express");
 const crypto = require('crypto');
+const fs = require('fs');
 const app = express();
+
+const dbInfo=JSON.parse(fs.readFileSync(__dirname+'/db.json', 'UTF-8'));
 
 const mysql = require('mysql');
 let connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'mingwan',
-  password : '11111111',
-  database : 'opentutorials'
+  host     : dbInfo.host,
+  user     : dbInfo.user,
+  password : dbInfo.pw,
+  database : dbInfo.database,
 });
 connection.connect();
 let sessionStore = new MySQLStore({}, connection);
