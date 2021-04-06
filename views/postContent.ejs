@@ -21,7 +21,7 @@
         </div>
         <div class="pageCount d-flex">
             <% for(let i=0; i <= (postCount-1) / 20; i++){ %>
-                <a href="/board/${boardName}/${i+1}"><%i+1%></a>
+                <a href="/board/<%=boardName%>/<%=i+1%>"><%=i+1%></a>
             <% } %>
         </div>
         </div>

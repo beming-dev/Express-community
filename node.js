@@ -44,7 +44,7 @@ app.get('*', (req, res, next) =>{
 app.get("/", (req, res) => {
     connection.query(`SELECT * FROM post ORDER BY id DESC`, function(error, postLists, fields) {
       if (error) throw error;
-      console.log(req.session.isLogined);
+      // console.log(req.session.isLogined);
       res.render("mainContent", 
         {
           session: req.session,
