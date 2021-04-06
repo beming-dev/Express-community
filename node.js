@@ -4,8 +4,6 @@ const MySQLStore = require('express-mysql-session')(session);
 const bodyParser = require("body-parser");
 const express = require("express");
 const crypto = require('crypto');
-const path = require("path");
-const fs = require("fs");
 const app = express();
 
 const mysql = require('mysql');
