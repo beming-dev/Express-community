@@ -1,5 +1,6 @@
 :root {
-    --main-color: rgb(181, 214, 146);
+    /* --main-color: rgb(181, 214, 146); */
+    --main-color: #A66E4E
   }
 
   ul {
@@ -66,10 +67,12 @@
 }
 
 .loginPage .form-group label{
+  color: #F2F2F2;
   width: 100px;
 }
 
 .loginPage .loginClose{
+  color: #F2F2F2;
   align-self: flex-end;
   justify-self: flex-end;
   position: relative;
@@ -77,7 +80,7 @@
   right: 20px;
   width: 40px;
   height: 40px;
-  border: 1px solid black;
+  border: 1px solid #F2F2F2;
   border-radius: 40px;
   background-color: var(--main-color);
   outline: none;
@@ -88,17 +91,17 @@
 }
 
 .loginSubmit{
-  color: black;
+  color: #F2F2F2;
   margin-top: 100px;
-  border: 1px solid black;
+  border: 1px solid #F2F2F2;
   border-radius: 10px;
   background: white;
   background-color: var(--main-color);
 }
 
 .registerSubmit{
-  color: black;
-  border: 1px solid black;
+  color: #F2F2F2;
+  border: 1px solid #F2F2F2;
   border-radius: 10px;
   background: white;
   background-color: var(--main-color);
@@ -110,11 +113,10 @@
   width: 100% !important;
   height: 100px;
   padding: 0;
-  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .navbar .navbar-brand {
-  color: white;
+  color: #F2F2F2;
   font-weight: 500;
   font-size: 50px;
   margin-left: 10px;
@@ -123,7 +125,7 @@
 .navbar .login {
   background: var(--main-color);
   border: none;
-  color: white;
+  color: #F2F2F2;
   justify-self: flex-end;
   margin-right: 30px;
   outline: none;
@@ -137,7 +139,7 @@
 .navbar .logout {
   background: var(--main-color);
   border: none;
-  color: white;
+  color: #F2F2F2;
   justify-self: flex-end;
   margin-right: 30px;
   outline: none;
@@ -151,7 +153,7 @@
 .navbar .register {
   background: var(--main-color);
   border: none;
-  color: white;
+  color: #F2F2F2;
   justify-self: flex-end;
   margin-right: 30px;
   outline: none;
@@ -164,7 +166,7 @@
 
 .navbar .nav-link {
   min-width: 100%;
-  color: white;
+  color: #F2F2F2;
   font-size: 18px;
   margin-left: 20px;
 }
