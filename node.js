@@ -214,4 +214,4 @@ app.get("/logout", (req, res)=>{
   res.redirect("/");
 })
 
-app.listen(3001, () => console.log("Example"));
+app.listen(3001, () => console.log("Example 3001"));
