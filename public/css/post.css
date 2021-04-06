@@ -32,7 +32,7 @@
 }
 
 .contents .right .list-box .postBox .post{
-  border: 2px solid white;
+  border: 2px solid #733E1F;
   border-radius: 10px;
   height: 40px;
   align-items: center;
@@ -40,7 +40,7 @@
   margin-top: 10px;
 }
 .contents .right .list-box .postBox .title{
-  color: black;
+  color: #F2F2F2;
   margin-left: 5px;
   overflow: hidden;
   white-space: nowrap;
@@ -56,11 +56,12 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   font-size: 14px;
-  color: grey;
+  color: #F2F2F2;
   width: 100px;
   flex-shrink: 0;
 }
 .contents .right .list-box .postBox .date{
+  color: #F2F2F2;
   font-size: 12px;
   flex-shrink: 0;
   width: 140px;
